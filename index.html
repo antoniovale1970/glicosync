@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF--8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GlicoSync - Controle de Diabetes</title>
+    <link rel="manifest" href="/manifest.webmanifest">
+    <meta name="theme-color" content="#1e40af">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-blue': '#1e40af',
+              'brand-blue-light': '#3b82f6',
+              'brand-green': '#16a34a',
+              'brand-background': '#0f172a',
+            },
+          },
+        },
+      }
+    </script>
+  <script type="importmap">
+{
+  "imports": {
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0",
+    "recharts": "https://aistudiocdn.com/recharts@^3.3.0",
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "jszip": "https://aistudiocdn.com/jszip@^3.10.1"
+  }
+}
+</script>
+<link rel="stylesheet" href="/index.css">
+</head>
+  <body class="bg-brand-background">
+    <div id="root"></div>
+    <script type="module" src="/index.tsx"></script>
+    <script>
+      // PWA Service Worker Registration
+      function registerServiceWorker() {
+        // A setTimeout is used here to defer the registration. This helps prevent "invalid state"
+        // errors that can occur in sandboxed environments by giving the browser a moment to fully
+        // stabilize after the load event.
+        setTimeout(() => {
+            // In sandboxed environments, relative paths for the worker script and scope can be resolved
+            // against the wrong origin. To fix this, we construct full, absolute URLs for both,
+            // ensuring they are tied to the application's actual origin.
+            const swUrl = new URL('/sw.js', window.location.origin);
+            const scopeUrl = new URL('/', window.location.origin);
+
+            navigator.serviceWorker.register(swUrl.href, { scope: scopeUrl.href })
+              .then(registration => {
+                console.log('GlicoSync Service Worker registered: ', registration);
+              })
+              .catch(registrationError => {
+                console.error('GlicoSync Service Worker registration failed: ', registrationError);
+              });
+        }, 0);
+      }
+
+      if ('serviceWorker' in navigator) {
+        // The 'load' event might have already fired if the script is loaded asynchronously.
+        // We check the document.readyState to handle this case and avoid "invalid state" errors.
+        if (document.readyState === 'complete') {
+          registerServiceWorker();
+        } else {
+          window.addEventListener('load', registerServiceWorker);
+        }
+      }
+    </script>
+  </body>
+</html>
