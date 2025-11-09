@@ -1,7 +1,0 @@
-{
-  "name": "GlicoSync",
-  "description": "Um aplicativo para ajudar usuários a monitorar e controlar a diabetes, oferecendo ferramentas para registro de glicemia, medicamentos, contatos médicos e recursos de estilo de vida gerados por IA.",
-  "requestFramePermissions": [
-    "geolocation"
-  ]
-}
