@@ -1,6 +1,5 @@
 
 import React, { useState, useMemo, useEffect } from 'react';
-import { Sidebar } from './components/Sidebar';
 import { Dashboard } from './components/Dashboard';
 import { GlucoseLog } from './components/GlucoseLog';
 import { Profile } from './components/Profile';
